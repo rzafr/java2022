@@ -1,0 +1,125 @@
+/**
+ * 
+ */
+package tienda;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+
+
+/**
+ * @author Ruben
+ *
+ */
+public class Pedido {
+
+	private static int incremento=1;
+	
+	private int codigo;
+	private LocalDate fecha;
+	private double total; //Calculado según pedido, ni en constructor ni set
+	private Cliente cliente;//Hay que pasarlo con set
+	private ArrayList<LineaPedido> lineas;
+	
+	
+	
+	
+	public Pedido() {
+		this.codigo=Pedido.incremento;
+		Pedido.incremento++;
+		this.fecha=LocalDate.now();
+		this.lineas=new ArrayList<>();
+		this.total=0;
+	}
+	
+	public Pedido(Cliente cliente) {
+		this.codigo=Pedido.incremento;
+		Pedido.incremento++;
+		this.fecha=LocalDate.now();
+		this.cliente=cliente;
+		this.lineas=new ArrayList<>();
+		this.total=0;
+	}
+	
+	/**
+	 * Devuelve el precio total del pedido con IVA menos el posible descuento del cliente que hace el pedido
+	 * @return
+	 */
+	public double total() {
+		//El total se va actualizando cada vez que añado una nueva LineaPedido
+		return total - this.cliente.descuento();
+	}
+	
+	/**
+	 * Devuelve las líneas de pedido
+	 * @return
+	 */
+	public ArrayList<LineaPedido> getLineas() {
+		return this.lineas;
+	}
+	
+	/**
+	 * Añade una línea de pedido al pedido y calculará el total poniéndolo en el atributo total
+	 * @param lp
+	 */
+	public void nuevaLinea(LineaPedido lp) {
+		//Si hay una línea de pedido ya con el mismo producto, lo que hago es actualizar la cantidad
+		boolean encontrado=false;
+		for (LineaPedido linea : lineas) {
+			if (linea.getProducto().equals(lp.getProducto())) {
+				linea.setCantidad(linea.getCantidad()+lp.getCantidad());
+				encontrado=true;
+			}
+		}
+		//Si no lo encuentra para ver si está repetido, se añade
+		if(!encontrado) {
+			this.lineas.add(lp);
+		}
+		//Tanto si está como si no, se suma el subtotal
+		this.total += lp.subtotal();
+		
+		//Si se hiciera con el indexOf en LineaPedido, buscaría un objeto exactamente igual
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pedido: ");
+		builder.append(codigo);
+		builder.append("\n");
+		for (LineaPedido linea : lineas) {
+			builder.append("Producto: ");
+			builder.append(linea.getProducto().getCodigo());
+			builder.append(" precio: ");
+			builder.append(linea.getProducto().getPrecio());
+			builder.append(" cantidad: ");
+			builder.append(linea.getCantidad());
+			builder.append(" Subtotal = ");
+			builder.append(linea.subtotal());
+			builder.append("€ \n");
+			
+		}
+		builder.append("Total (IVA inc.) = ");
+		builder.append(total());
+		builder.append("€");
+		builder.append("\n");
+		
+		
+		return builder.toString();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
