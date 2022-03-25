@@ -2,6 +2,8 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="C:\Users\Ruben\eclipse-workspace"/>
+			<item value="C:\Users\Ruben\eclipse-workspace\ProyectoMaven"/>
 			<item value="C:\Users\Ruben\eclipse-workspace\ProyectJavaFX"/>
 			<item value="C:\Users\Ruben\eclipse-workspace\Servlet"/>
 			<item value="C:\Users\Ruben\eclipse-workspace\ProyectMaven"/>
@@ -28,15 +30,22 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="org.openjfx.mijavafx"/>
+			<item value="org.jaroso.daw.miwebapp"/>
+			<item value="org.jaroso.miwebapp"/>
 			<item value="org.jaroso.mijavafx"/>
 			<item value="org.jaroso.pruebaservlet"/>
 			<item value="org.jaroso.ProyectMaven"/>
 		</list>
 		<list key="groupId">
+			<item value="org.openjfx"/>
+			<item value="org.jaroso.daw"/>
 			<item value="org.jaroso"/>
 		</list>
 		<list key="artifactId">
 			<item value="mijavafx"/>
+			<item value="miwebapp"/>
+			<item value="MiWebApp"/>
 			<item value="pruebaservlet"/>
 			<item value="ProyectMaven"/>
 		</list>
@@ -74,5 +83,19 @@
 	<section name="org.eclipse.m2e.core.pom.overview">
 	</section>
 	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="org.eclipse.m2e.core.ui.internal.wizards.CustomArchetypeDialog">
+		<list key="archetypeGroupId">
+			<item value="org.openjfx"/>
+		</list>
+		<list key="archetypeArtifactId">
+			<item value="javafx-archetype-fxml"/>
+		</list>
+		<list key="archetypeVersion">
+			<item value="0.0.6"/>
+		</list>
+		<list key="repositoryUrl">
+			<item value=""/>
+		</list>
 	</section>
 </section>
